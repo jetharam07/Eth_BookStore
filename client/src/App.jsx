@@ -20,6 +20,7 @@ import "./App.css";
 /* ------------------ LocalStorage Keys ------------------ */
 const LS_BOOK_META = "bookstore.bookMeta";
 const LS_YT_LINK = "bookstore.ytLink";
+const METADATA_URL = "https://orange-near-squirrel-433.mypinata.cloud/ipfs/bafkreic32eaeqjihkadexhjpi7v64ktngw42xzmuoknvp4phiuz7jlsaou";
 
 /* Utility */
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -54,6 +55,7 @@ export default function App() {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
+
   // For open connect options******
   const [showWalletOptions, setShowWalletOptions] = useState(false);
   // For open connect options******
@@ -65,13 +67,16 @@ export default function App() {
   const [jgBalance, setJgBalance] = useState(0n);
   const [ownedBooks, setOwnedBooks] = useState([]);
 
-  const [bookMeta, setBookMeta] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem(LS_BOOK_META) || "{}");
-    } catch {
-      return {};
-    }
-  });
+  // const [bookMeta, setBookMeta] = useState(() => {
+  //   try {
+  //     return JSON.parse(localStorage.getItem(LS_BOOK_META) || "{}");
+  //   } catch {
+  //     return {};
+  //   }
+  // });
+
+  const [bookMeta, setBookMeta] = useState({});
+
 
   const [priceMap, setPriceMap] = useState({});
   const [activeBuyId, setActiveBuyId] = useState(null);
@@ -462,12 +467,12 @@ export default function App() {
   };
 
   /* ------------------ Book Meta (Name + Image) ------------------ */
-  const persistBookMeta = (next) => {
-    setBookMeta(next);
-    try {
-      localStorage.setItem(LS_BOOK_META, JSON.stringify(next));
-    } catch { }
-  };
+  // const persistBookMeta = (next) => {
+  //   setBookMeta(next);
+  //   try {
+  //     localStorage.setItem(LS_BOOK_META, JSON.stringify(next));
+  //   } catch { }
+  // };
 
 
   const handleImageUpload = async (e, id) => {
@@ -532,6 +537,25 @@ export default function App() {
   };
 
   /* ------------------ Effects ------------------ */
+
+  // Load global metadata from IPFS
+  useEffect(() => {
+    const loadGlobalMeta = async () => {
+      try {
+        const res = await fetch(METADATA_URL);
+        const json = await res.json();
+        setBookMeta(json);
+        console.log("Global metadata loaded:", json);
+      } catch (err) {
+        console.error("Metadata load failed:", err);
+      }
+    };
+
+    loadGlobalMeta();
+  }, []);
+
+
+
   useEffect(() => {
     if (provider) {
       loadPrices(allBookIds);

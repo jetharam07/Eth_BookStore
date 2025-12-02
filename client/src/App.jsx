@@ -67,13 +67,6 @@ export default function App() {
   const [jgBalance, setJgBalance] = useState(0n);
   const [ownedBooks, setOwnedBooks] = useState([]);
 
-  // const [bookMeta, setBookMeta] = useState(() => {
-  //   try {
-  //     return JSON.parse(localStorage.getItem(LS_BOOK_META) || "{}");
-  //   } catch {
-  //     return {};
-  //   }
-  // });
 
   const [bookMeta, setBookMeta] = useState({});
 
@@ -465,14 +458,6 @@ export default function App() {
       setSetTokenAddrLoading(false);
     }
   };
-
-  /* ------------------ Book Meta (Name + Image) ------------------ */
-  // const persistBookMeta = (next) => {
-  //   setBookMeta(next);
-  //   try {
-  //     localStorage.setItem(LS_BOOK_META, JSON.stringify(next));
-  //   } catch { }
-  // };
 
 
   const handleImageUpload = async (e, id) => {
@@ -896,7 +881,7 @@ export default function App() {
 
                 </div>
 
-                <div className="howto-right">
+                {/* <div className="howto-right">
                   {showVideo && toYouTubeEmbed(ytLink) ? (
                     <div className="yt-frame">
                       <button
@@ -918,7 +903,7 @@ export default function App() {
                       Add a YouTube link to preview
                     </div>
                   )}
-                </div>
+                </div> */}
               </div>
             </section>
 

@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { ethers } from "ethers";
 import { useWalletClient, usePublicClient } from "wagmi";
-
+import Img0 from "./assets/token_Economy.png";
+import Img1 from "./assets/mastring_blockchain.png";
+import Img2 from "./assets/AtomicHabit.png";
+import Img3 from "./assets/rich_dad_poor_dad.png";
+import Img4 from "./assets/happyLife.png";
+import Img5 from "./assets/the_ikigai_journey.png";
 
 // Wagmi hooks (custom connect buttons)
 import { useConnect, useAccount, useDisconnect } from "wagmi";
@@ -16,11 +21,19 @@ import {
 import "./App.css";
 
 
+const STATIC_BOOK_META = {
+  "0": { name: "Token Economy", img: Img0 },
+  "1": { name: "Mastering Blockchain", img: Img1 },
+  "2": { name: "Atomic Habits", img: Img2 },
+  "3": { name: "Rich Dad Poor Dad", img: Img3 },
+  "4": { name: "Live Happy Life", img: Img4 },
+  "5": { name: "The Ikigai Journey", img: Img5 }
+};
+
 
 /* ------------------ LocalStorage Keys ------------------ */
 const LS_BOOK_META = "bookstore.bookMeta";
 const LS_YT_LINK = "bookstore.ytLink";
-const METADATA_URL = "https://orange-near-squirrel-433.mypinata.cloud/ipfs/bafkreic32eaeqjihkadexhjpi7v64ktngw42xzmuoknvp4phiuz7jlsaou";
 
 /* Utility */
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -459,6 +472,8 @@ export default function App() {
     }
   };
 
+  /* ------------------ Book Meta (Name + Image) ------------------ */
+
 
   const handleImageUpload = async (e, id) => {
     if (!id) {
@@ -523,20 +538,9 @@ export default function App() {
 
   /* ------------------ Effects ------------------ */
 
-  // Load global metadata from IPFS
+  // Load static metadata instantly
   useEffect(() => {
-    const loadGlobalMeta = async () => {
-      try {
-        const res = await fetch(METADATA_URL);
-        const json = await res.json();
-        setBookMeta(json);
-        console.log("Global metadata loaded:", json);
-      } catch (err) {
-        console.error("Metadata load failed:", err);
-      }
-    };
-
-    loadGlobalMeta();
+    setBookMeta(STATIC_BOOK_META);
   }, []);
 
 
@@ -881,29 +885,17 @@ export default function App() {
 
                 </div>
 
-                {/* <div className="howto-right">
-                  {showVideo && toYouTubeEmbed(ytLink) ? (
-                    <div className="yt-frame">
-                      <button
-                        className="yt-close"
-                        onClick={() => setShowVideo(false)}
-                      >
-                        ×
-                      </button>
+                <div className="howto-right">
+                  <div className="yt-frame">
+                    <iframe
+                      src="https://www.youtube-nocookie.com/embed/KScMybHk2EI?rel=0&modestbranding=1"
+                      title="Tutorial Video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
 
-                      <iframe
-                        src={toYouTubeEmbed(ytLink)}
-                        title="Tutorial"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
-                      />
-                    </div>
-                  ) : (
-                    <div className="yt-placeholder">
-                      Add a YouTube link to preview
-                    </div>
-                  )}
-                </div> */}
               </div>
             </section>
 

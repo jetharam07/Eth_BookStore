@@ -41,7 +41,7 @@ npm run build
 ```
 
 Create a .env file inside the client directory:
-
+```bash
 VITE_PINATA_JWT=your_pinata_jwt
-
+```
 This variable is used for IPFS file uploads through Pinata.

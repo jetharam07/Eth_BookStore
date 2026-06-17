@@ -140,3 +140,17 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
+
+## Environment Variables
+
+### 1. Root Environment Variables (Foundry)
+
+Create a `.env` file in the project root directory:
+
+```env
+SEPOLIA_RPC_URL=your_sepolia_rpc_url
+PRIVATE_KEY=your_wallet_private_key
+ETHERSCAN_API_KEY=your_etherscan_api_key
+```
+
+These variables are required for deploying and verifying smart contracts using Foundry.

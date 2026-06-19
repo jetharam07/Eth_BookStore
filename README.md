@@ -55,10 +55,11 @@ On the administrative side, the application enables book management, pricing upd
 * JavaScript
 * CSS
 
-### Wallet Integration
-
+### Integration
+* Ethers.js
 * MetaMask
 * WalletConnect
+
 
 ## Learning Outcomes
 
